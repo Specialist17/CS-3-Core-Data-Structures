@@ -10,8 +10,12 @@ import pdb
 # string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
-characters = {0: "0", 1: "1", 2: "2", 3: "3", 4: "4", 4: "4", 5: "5", 6: "6",
+encoding_encoding_characters = {0: "0", 1: "1", 2: "2", 3: "3", 4: "4", 4: "4", 5: "5", 6: "6",
               7: "7", 8: "8", 9: "9", 10: "A", 11: "B", 12: "C", 13: "D", 14: "E",
+              15: "F", 16: "G", 17: "H", 18: "I", 19: "J", 20: "K", 21: "L",
+              22: "M", 23: "N", 24: "O", 25: "P", 26: "Q", 27: "R", 28: "S",
+              29: "T", 30: "U", 31: "V", 32: "W", 33: "X", 34: "Y", 35: "Z", }
+decoding_encoding_characters = {10: "A", 11: "B", 12: "C", 13: "D", 14: "E",
               15: "F", 16: "G", 17: "H", 18: "I", 19: "J", 20: "K", 21: "L",
               22: "M", 23: "N", 24: "O", 25: "P", 26: "Q", 27: "R", 28: "S",
               29: "T", 30: "U", 31: "V", 32: "W", 33: "X", 34: "Y", 35: "Z", }
@@ -24,7 +28,16 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # TODO: Decode digits from binary (base 2)
-    # ...
+    digits_list = digits[::-1]
+    level = 1
+    total_sum = 0
+    for digit in digits_list:
+        value = level * int(digit)
+        total_sum += int(value)
+        level = level * base
+
+    print(total_sum)
+    return total_sum
     # TODO: Decode digits from hexadecimal (base 16)
     # ...
     # TODO: Decode digits from any base (2 up to 36)
@@ -41,13 +54,13 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
     # TODO: Encode number in binary (base 2)
-    binary_list = []
+    digit_list = []
     current_quotient = number
-    binary_list.append(str(characters[current_quotient % base].lower()))
+    digit_list.append(str(encoding_characters[current_quotient % base].lower()))
     while math.floor(current_quotient/base) > 0:
         current_quotient = math.floor(current_quotient/base)
-        binary_list.append(str(characters[current_quotient % base].lower()))
-    return "".join(binary_list[::-1])
+        digit_list.append(str(encoding_characters[current_quotient % base].lower()))
+    return "".join(digit_list[::-1])
 
 
 def convert(digits, base1, base2):
@@ -163,11 +176,61 @@ def encode_into_1010():
     print(encode(32800, 32) == '1010')
     print(encode(46692, 36) == '1010')
 
+
+def decode_binary():
+    print(decode('0', 2) == 0)
+    print(decode('1', 2) == 1)
+    print(decode('10', 2) == 2)
+    print(decode('11', 2) == 3)
+    print(decode('100', 2) == 4)
+    print(decode('101', 2) == 5)
+    print(decode('110', 2) == 6)
+    print(decode('111', 2) == 7)
+    print(decode('1000', 2) == 8)
+    print(decode('1001', 2) == 9)
+    print(decode('1010', 2) == 10)
+    print(decode('1011', 2) == 11)
+    print(decode('1100', 2) == 12)
+    print(decode('1101', 2) == 13)
+    print(decode('1110', 2) == 14)
+    print(decode('1111', 2) == 15)
+
+def decode_decimal():
+    print(decode('5', 10) == 5)
+    print(decode('9', 10) == 9)
+    print(decode('10', 10) == 10)
+    print(decode('25', 10) == 25)
+    print(decode('64', 10) == 64)
+    print(decode('99', 10) == 99)
+    print(decode('123', 10) == 123)
+    print(decode('789', 10) == 789)
+    print(decode('2345', 10) == 2345)
+    print(decode('6789', 10) == 6789)
+    print(decode('13579', 10) == 13579)
+    print(decode('24680', 10) == 24680)
+
+def decode_hexadecimal():
+    print(decode('a', 16) == 10)
+    print(decode('f', 16) == 15)
+    print(decode('99', 16) == 153)
+    print(decode('ff', 16) == 255)
+    print(decode('ace', 16) == 2766)
+    print(decode('cab', 16) == 3243)
+    print(decode('bead', 16) == 48813)
+    print(decode('face', 16) == 64206)
+    print(decode('c0ffee', 16) == 12648430)
+    print(decode('facade', 16) == 16435934)
+    print(decode('deadbeef', 16) == 3735928559)
+    print(decode('f007ba11', 16) == 4027038225)
+
 if __name__ == '__main__':
     # main()
-    encode_binary()
-    encode_hexadecimal()
-    encode_1234()
-    encode_248975()
-    encode_into_10()
-    encode_into_1010()
+    # encode_binary()
+    # encode_hexadecimal()
+    # encode_1234()
+    # encode_248975()
+    # encode_into_10()
+    # encode_into_1010()
+    decode_binary()
+    decode_decimal()
+    # decode_hexadecimal()
