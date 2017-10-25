@@ -1,6 +1,8 @@
 #!python
 
 import string
+import math
+import pdb
 # Hint: Use these string constants to encode/decode hexadecimal digits and more
 # string.digits is '0123456789'
 # string.hexdigits is '0123456789abcdefABCDEF'
@@ -8,7 +10,11 @@ import string
 # string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
-
+characters = {0: "0", 1: "1", 2: "2", 3: "3", 4: "4", 4: "4", 5: "5", 6: "6",
+              7: "7", 8: "8", 9: "9", 10: "A", 11: "B", 12: "C", 13: "D", 14: "E",
+              15: "F", 16: "G", 17: "H", 18: "I", 19: "J", 20: "K", 21: "L",
+              22: "M", 23: "N", 24: "O", 25: "P", 26: "Q", 27: "R", 28: "S",
+              29: "T", 30: "U", 31: "V", 32: "W", 33: "X", 34: "Y", 35: "Z", }
 
 def decode(digits, base):
     """Decode given digits in given base to number in base 10.
@@ -35,11 +41,36 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
     # TODO: Encode number in binary (base 2)
+    binary_list = []
+
+    # pdb.set_trace()
+    if base == 2:
+        current_quotient = number
+        binary_list.append(str(current_quotient % 2))
+        while math.floor(current_quotient/2) is not 1 and math.floor(current_quotient/2) is not 0:
+            current_quotient = math.floor(current_quotient/2)
+            binary_list.append(str(current_quotient % 2))
+
+        print(binary_list)
+        return "".join(binary_list[::-1])
     # ...
-    # TODO: Encode number in hexadecimal (base 16)
-    # ...
-    # TODO: Encode number in any base (2 up to 36)
-    # ...
+    if base == 16:
+        current_quotient = number
+        binary_list.append(str(characters[current_quotient % 16].lower()))
+        while math.floor(current_quotient/16) is not 1 and math.floor(current_quotient/16) is not 0:
+            current_quotient = math.floor(current_quotient/16)
+            binary_list.append(str(characters[current_quotient % 16].lower()))
+
+        print(binary_list[::-1])
+        return "".join(binary_list[::-1])
+    current_quotient = number
+    binary_list.append(str(characters[current_quotient % base].lower()))
+    while math.floor(current_quotient/base) is not 1 and math.floor(current_quotient/base) is not 0:
+        current_quotient = math.floor(current_quotient/base)
+        binary_list.append(str(characters[current_quotient % base].lower()))
+
+    print(binary_list[::-1])
+    return "".join(binary_list[::-1])
 
 
 def convert(digits, base1, base2):
@@ -77,5 +108,89 @@ def main():
         print('Converts digits from base1 to base2')
 
 
+def encode_binary():
+    # assert encode(0, 2) == '0'  # Should '' be valid?
+    print(encode(1, 2) == '1')
+    print(encode(2, 2) == '10')
+    print(encode(3, 2) == '11')
+    print(encode(4, 2) == '100')
+    print(encode(5, 2) == '101')
+    print(encode(6, 2) == '110')
+    print(encode(7, 2) == '111')
+    print(encode(8, 2) == '1000')
+    print(encode(9, 2) == '1001')
+    print(encode(10, 2) == '1010')
+    print(encode(11, 2) == '1011')
+    print(encode(12, 2) == '1100')
+    print(encode(13, 2) == '1101')
+    print(encode(14, 2) == '1110')
+    print(encode(15, 2) == '1111')
+    print(encode(248975, 2) == '111100110010001111')
+
+
+def encode_hexadecimal():
+    print(encode(10, 16) == 'a')
+    print(encode(15, 16) == 'f')
+    print(encode(153, 16) == '99')
+    print(encode(255, 16) == 'ff')
+    print(encode(2766, 16) == 'ace')
+    print(encode(3243, 16) == 'cab')
+    print(encode(48813, 16) == 'bead')
+    print(encode(64206, 16) == 'face')
+    print(encode(12648430, 16) == 'c0ffee')
+    print(encode(16435934, 16) == 'facade')
+    print(encode(3735928559, 16) == 'deadbeef')
+    print(encode(4027038225, 16) == 'f007ba11')
+
+
+def encode_1234():
+    print(encode(1234, 2) == '10011010010')
+    print(encode(1234, 3) == '1200201')
+    print(encode(1234, 4) == '103102')
+    print(encode(1234, 5) == '14414')
+    print(encode(1234, 8) == '2322')
+    print(encode(1234, 10) == '1234')
+    print(encode(1234, 16) == '4d2')
+    print(encode(1234, 32) == '16i')
+
+
+def encode_248975():
+    print(encode(248975, 2) == '111100110010001111')
+    print(encode(248975, 4) == '330302033')
+    print(encode(248975, 8) == '746217')
+    print(encode(248975, 10) == '248975')
+    print(encode(248975, 16) == '3cc8f')
+    print(encode(248975, 25) == 'fn90')
+    print(encode(248975, 32) == '7j4f')
+    print(encode(248975, 36) == '5c3z')
+
+
+def encode_into_10():
+    print(encode(2, 2) == '10')
+    print(encode(4, 4) == '10')
+    print(encode(8, 8) == '10')
+    print(encode(10, 10) == '10')
+    print(encode(16, 16) == '10')
+    print(encode(25, 25) == '10')
+    print(encode(32, 32) == '10')
+    print(encode(36, 36) == '10')
+
+
+def encode_into_1010():
+    print(encode(10, 2) == '1010')
+    print(encode(68, 4) == '1010')
+    print(encode(520, 8) == '1010')
+    print(encode(1010, 10) == '1010')
+    print(encode(4112, 16) == '1010')
+    print(encode(15650, 25) == '1010')
+    print(encode(32800, 32) == '1010')
+    print(encode(46692, 36) == '1010')
+
 if __name__ == '__main__':
-    main()
+    # main()
+    encode_binary()
+    encode_hexadecimal()
+    encode_1234()
+    encode_248975()
+    encode_into_10()
+    encode_into_1010()
