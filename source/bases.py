@@ -42,34 +42,11 @@ def encode(number, base):
     assert number >= 0, 'number is negative: {}'.format(number)
     # TODO: Encode number in binary (base 2)
     binary_list = []
-
-    # pdb.set_trace()
-    if base == 2:
-        current_quotient = number
-        binary_list.append(str(current_quotient % 2))
-        while math.floor(current_quotient/2) is not 1 and math.floor(current_quotient/2) is not 0:
-            current_quotient = math.floor(current_quotient/2)
-            binary_list.append(str(current_quotient % 2))
-
-        print(binary_list)
-        return "".join(binary_list[::-1])
-    # ...
-    if base == 16:
-        current_quotient = number
-        binary_list.append(str(characters[current_quotient % 16].lower()))
-        while math.floor(current_quotient/16) is not 1 and math.floor(current_quotient/16) is not 0:
-            current_quotient = math.floor(current_quotient/16)
-            binary_list.append(str(characters[current_quotient % 16].lower()))
-
-        print(binary_list[::-1])
-        return "".join(binary_list[::-1])
     current_quotient = number
     binary_list.append(str(characters[current_quotient % base].lower()))
-    while math.floor(current_quotient/base) is not 1 and math.floor(current_quotient/base) is not 0:
+    while math.floor(current_quotient/base) > 0:
         current_quotient = math.floor(current_quotient/base)
         binary_list.append(str(characters[current_quotient % base].lower()))
-
-    print(binary_list[::-1])
     return "".join(binary_list[::-1])
 
 
