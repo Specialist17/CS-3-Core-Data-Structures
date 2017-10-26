@@ -68,6 +68,10 @@ class BasesDecodeTest(unittest.TestCase):
         assert decode('1010', 8) == 520
         assert decode('1010', 10) == 1010
         assert decode('1010', 16) == 4112
+        # assert decode('1010', 13) == 1010
+        # assert decode('1010', 15) == 4112
+        # assert decode('1010', 17) == 15650
+        # assert decode('1010', 23) == 32800
         assert decode('1010', 25) == 15650
         assert decode('1010', 32) == 32800
         assert decode('1010', 36) == 46692
@@ -82,6 +86,17 @@ class BasesDecodeTest(unittest.TestCase):
         assert decode('101101', 32) == 33588225
         assert decode('101101', 36) == 60514129
 
+    def test_decode_123456(self):
+        assert decode('123456', 8) == 42798
+        assert decode('123456', 9) == 74733
+        assert decode('123456', 11) == 194871
+        assert decode('123456', 13) == 435753
+        assert decode('1a3b5c', 15) == 1278312
+        assert decode('123456', 17) == 1602885
+        assert decode('1a3b5cgh', 19) == 1373231325
+        assert decode('123456', 21) == 4502721
+        # assert decode('123456', 23) == 42798
+        # assert decode('123456', 27) == 42798
 
 class BasesEncodeTest(unittest.TestCase):
 
