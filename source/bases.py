@@ -21,6 +21,7 @@ DECODING_CHARACTERS = {"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "4": 4, "5": 5, "
               "m": 22 , "n": 23 , "o": 24 , "p": 25 , "q": 26 , "r": 27 , "s": 28 ,
               "t": 29 , "u": 30 , "v": 31 , "w": 32 , "x": 33 , "y": 34 , "z": 35 }
 
+## TODO: do it in 4 lines
 def decode(digits, base):
     """Decode given digits in given base to number in base 10.
     digits: str -- string representation of number (in given base)
@@ -39,15 +40,10 @@ def decode(digits, base):
             value = level * int(digit)
         total_sum += int(value)
         level = level * base
-
-    print(total_sum)
     return total_sum
-    # TODO: Decode digits from hexadecimal (base 16)
-    # ...
-    # TODO: Decode digits from any base (2 up to 36)
-    # ...
 
 
+## TODO: do it in 5 lines, maybe down to 3
 def encode(number, base):
     """Encode given number in base 10 to digits in given base.
     number: int -- integer representation of number (in base 10)
@@ -57,7 +53,7 @@ def encode(number, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
-    # TODO: Encode number in binary (base 2)
+
     digit_list = []
     current_quotient = number
     digit_list.append(str(ENCODING_CHARACTERS[current_quotient % base].lower()))
