@@ -16,14 +16,16 @@ def factorial_iterative(n):
     # TODO: implement the factorial function iteratively here
     # once implemented, change factorial (above) to call factorial_iterative
     # to verify that your iterative implementation passes all tests
-    if n == 0 or n == 1:
-        return 1
-    elif n > 1:
-        total = 1
-        for x in range(n):
-            total = total * (n-x)
+    # if n == 0 or n == 1:
+    #     return 1
+    # if n >= 0:
+    total = 1
+    # for value in range(n, 1, -1):
+    for index in range(n-1):
+        value = n - index
+        total = total * value
 
-        return total
+    return total
 
 
 
