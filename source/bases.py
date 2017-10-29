@@ -109,7 +109,6 @@ def decode_fractional(digits, base):
     base_number = digits.split(".")
     assert len(base_number) <= 2, 'too many decimal points {}'.format(len(base_number))
 
-
     decimal_num = decode(base_number[0], base)
     fractional_num = base_number[1]
 
@@ -118,8 +117,8 @@ def decode_fractional(digits, base):
 
     for power, decimal in enumerate(fractional_num):
         # divide the current decimal by the base elevated to the current power
-        current_multiple += int(DECODING_CHARACTERS[decimal])/(base ** (int(power)+1))
-    #
+        current_multiple += float(DECODING_CHARACTERS[decimal])/(base ** (float(power)+1))
+
     final_binary = decimal_num + current_multiple
     return final_binary
 
@@ -177,21 +176,10 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # print(encode_fractional(4.5374, 2, 10))
-    # print(encode_fractional(46.712837, 16, 10))
-    # print(decode_fractional('10.1011011001', 2))
-    # print(decode_fractional('11010.11010100001', 2))
-    # print(decode_fractional('111111.100011100', 2))
-    # print(decode_fractional('111111.100011100', 5) == 3906.2003968)
-    # print(decode_fractional('f42.334d3466', 16))
 
-    print(convert_fractional('1101.11010100001', 2, 16, 3))
+    print(convert_fractional('1101.11010100001', 2, 16, 4))
     print(convert_fractional('1011.100101', 2, 16, 3))
     print(convert_fractional('1100.10100001', 2, 16, 3))
-    print(convert_fractional('1101.111', 2, 16, 3))
+    print(convert_fractional('1101.111100101', 2, 10, 6))
     print(convert_fractional('1110.11000', 2, 8, 3))
-    print(convert_fractional('1111.101010', 2, 12, 3))
-    # print(convert_fractional('1100100001000000', 2, 16) == 'c840')
-    # print(convert_fractional('1101100101010001', 2, 16) == 'd951')
-    # print(convert_fractional('1110101001100010', 2, 16) == 'ea62')
-    # print(convert_fractional('1111101101110011', 2, 16) == 'fb73')
+    print(convert_fractional('1111.101010', 2, 5, 3))
