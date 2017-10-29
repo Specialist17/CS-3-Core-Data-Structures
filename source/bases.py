@@ -141,7 +141,7 @@ def convert(digits, base1, base2):
         base_10_repr = decode(digits, base1)
         return encode(base_10_repr, base2)
 
-def convert_fractional(digits, base1, base2):
+def convert_fractional(digits, base1, base2, precision):
     """Convert given digits in base1 to digits in base2.
     digits: str -- string representation of number (in base1)
     base1: int -- base of given number
@@ -153,10 +153,10 @@ def convert_fractional(digits, base1, base2):
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
 
     if base1 == 10:
-        return encode_fractional(int(digits), base2)
+        return encode_fractional(int(digits), base2, precision)
     else:
         base_10_repr = decode_fractional(digits, base1)
-        return encode_fractional(base_10_repr, base2)
+        return encode_fractional(base_10_repr, base2, precision)
 
 
 def main():
@@ -178,20 +178,20 @@ def main():
 if __name__ == '__main__':
     main()
     # print(encode_fractional(4.5374, 2, 10))
-    print(encode_fractional(46.712837, 16, 10))
-    print(decode_fractional('10.1011011001', 2))
-    print(decode_fractional('11010.11010100001', 2))
-    print(decode_fractional('111111.100011100', 2))
-    print(decode_fractional('111111.100011100', 5) == 3906.2003968)
-    print(decode_fractional('f42.334d3466', 16))
+    # print(encode_fractional(46.712837, 16, 10))
+    # print(decode_fractional('10.1011011001', 2))
+    # print(decode_fractional('11010.11010100001', 2))
+    # print(decode_fractional('111111.100011100', 2))
+    # print(decode_fractional('111111.100011100', 5) == 3906.2003968)
+    # print(decode_fractional('f42.334d3466', 16))
 
-    # print(convert('1010', 2, 16) == 'a')
-    # print(convert('1011', 2, 16) == 'b')
-    # print(convert('1100', 2, 16) == 'c')
-    # print(convert('1101', 2, 16) == 'd')
-    # print(convert('1110', 2, 16) == 'e')
-    # print(convert('1111', 2, 16) == 'f')
-    # print(convert('1100100001000000', 2, 16) == 'c840')
-    # print(convert('1101100101010001', 2, 16) == 'd951')
-    # print(convert('1110101001100010', 2, 16) == 'ea62')
-    # print(convert('1111101101110011', 2, 16) == 'fb73')
+    print(convert_fractional('1101.11010100001', 2, 16, 3))
+    print(convert_fractional('1011.100101', 2, 16, 3))
+    print(convert_fractional('1100.10100001', 2, 16, 3))
+    print(convert_fractional('1101.111', 2, 16, 3))
+    print(convert_fractional('1110.11000', 2, 8, 3))
+    print(convert_fractional('1111.101010', 2, 12, 3))
+    # print(convert_fractional('1100100001000000', 2, 16) == 'c840')
+    # print(convert_fractional('1101100101010001', 2, 16) == 'd951')
+    # print(convert_fractional('1110101001100010', 2, 16) == 'ea62')
+    # print(convert_fractional('1111101101110011', 2, 16) == 'fb73')
