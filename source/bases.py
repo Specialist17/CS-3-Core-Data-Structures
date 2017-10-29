@@ -82,22 +82,45 @@ def encode_fractional(number, base, precision):
     # create a decimal number with the decimal extracted from base_number
     current_multiple = float("0." + base_number[1])
 
-    # get the current integer value
-    # fractional_binary = str(current_multiple).split(".")[0]
-    # fraction_list.append(fractional_binary)
-
     for _ in range(precision):
         # multiply the current decimal by the base
         current_multiple = current_multiple * base
 
         # get the current integer value
         fractional_binary = str(current_multiple).split(".")[0]
-        fraction_list.append(fractional_binary)
+        fraction_list.append(ENCODING_CHARACTERS[int(fractional_binary)].lower())
 
         # reset the integer value to 0
         current_multiple = float("0." + str(current_multiple).split(".")[1])
 
     final_binary = decimal_num + "." + "".join(fraction_list)
+    return final_binary
+
+
+def decode_fractional(digits, base):
+    """Decode given digits in given base to number in base 10.
+    digits: str -- string representation of number (in given base)
+    base: int -- base of given number
+    return: int -- integer representation of number (in base 10)"""
+    # Handle up to base 36 [0-9a-z]
+    assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
+
+    # separate integer from decimal numbers
+    base_number = digits.split(".")
+    assert len(base_number) <= 2, 'too many decimal points {}'.format(len(base_number))
+
+
+    decimal_num = decode(base_number[0], base)
+    fractional_num = base_number[1]
+
+    # create a decimal number with the decimal extracted from base_number
+    current_multiple = 0
+
+    for power, decimal in enumerate(fractional_num):
+        # divide the current decimal by the base elevated to the current power
+        current_multiple += int(DECODING_CHARACTERS[decimal])/(base ** (int(power)+1))
+    #
+    final_binary = decimal_num + current_multiple
     return final_binary
 
 
@@ -118,6 +141,23 @@ def convert(digits, base1, base2):
         base_10_repr = decode(digits, base1)
         return encode(base_10_repr, base2)
 
+def convert_fractional(digits, base1, base2):
+    """Convert given digits in base1 to digits in base2.
+    digits: str -- string representation of number (in base1)
+    base1: int -- base of given number
+    base2: int -- base to convert to
+    return: str -- string representation of number (in base2)"""
+    # Handle up to base 36 [0-9a-z]
+    assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
+    assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
+    # TODO: Convert digits from base 2 to base 16 (and vice versa)
+
+    if base1 == 10:
+        return encode_fractional(int(digits), base2)
+    else:
+        base_10_repr = decode_fractional(digits, base1)
+        return encode_fractional(base_10_repr, base2)
+
 
 def main():
     """Read command-line arguments and convert given digits between bases."""
@@ -137,5 +177,21 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print(encode_fractional(4.5374, 2, 10))
-    print(encode_fractional(1.712837, 2, 10))
+    # print(encode_fractional(4.5374, 2, 10))
+    print(encode_fractional(46.712837, 16, 10))
+    print(decode_fractional('10.1011011001', 2))
+    print(decode_fractional('11010.11010100001', 2))
+    print(decode_fractional('111111.100011100', 2))
+    print(decode_fractional('111111.100011100', 5) == 3906.2003968)
+    print(decode_fractional('f42.334d3466', 16))
+
+    # print(convert('1010', 2, 16) == 'a')
+    # print(convert('1011', 2, 16) == 'b')
+    # print(convert('1100', 2, 16) == 'c')
+    # print(convert('1101', 2, 16) == 'd')
+    # print(convert('1110', 2, 16) == 'e')
+    # print(convert('1111', 2, 16) == 'f')
+    # print(convert('1100100001000000', 2, 16) == 'c840')
+    # print(convert('1101100101010001', 2, 16) == 'd951')
+    # print(convert('1110101001100010', 2, 16) == 'ea62')
+    # print(convert('1111101101110011', 2, 16) == 'fb73')

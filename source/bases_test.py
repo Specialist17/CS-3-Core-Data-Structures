@@ -1,6 +1,6 @@
 #!python
 
-from bases import decode, encode, convert, encode_fractional
+from bases import decode, encode, convert, encode_fractional, decode_fractional
 import unittest
 
 
@@ -286,18 +286,25 @@ class FractionalBasesConvertTest(unittest.TestCase):
         assert encode_fractional(1.712837, 2, 10) == '1.1011011001'
         assert encode_fractional(2.712837, 2, 10) == '10.1011011001'
         assert encode_fractional(3.712837, 2, 10) == '11.1011011001'
-        # assert encode_fractional(4.712837, 2, 10) == '100'
-        # assert encode_fractional(5.712837, 2, 10) == '101'
-        # assert encode_fractional(6.712837, 2, 10) == '110'
-        # assert encode_fractional(7.712837, 2, 10) == '111'
-        # assert encode_fractional(8.712837, 2, 10) == '1000'
-        # assert encode_fractional(9.712837, 2, 10) == '1001'
-        # assert encode_fractional(1.7128370, 2, 10) == '1010'
-        # assert encode_fractional(1.7128371, 2, 10) == '1011'
-        # assert encode_fractional(1.7128372, 2, 10) == '1100'
-        # assert encode_fractional(1.7128373, 2, 10) == '1101'
-        # assert encode_fractional(1.7128374, 2, 10) == '1110'
-        # assert encode_fractional(1.7128375, 2, 10) == '1111'
+
+    def test_encode_fractional_decimal(self):
+        # assert encode(0, 2) == '0'  # Should '' be valid?
+        assert encode_fractional(1.712837, 7, 5) == '1.46633'
+        assert encode_fractional(2.712837, 9, 5) == '2.63658'
+        assert encode_fractional(3.712837, 11, 5) == '3.79287'
+        assert encode_fractional(4.238472, 10, 5) == '4.23847'
+
+    def test_decode_fractional_binary(self):
+        assert decode_fractional('10.1011011001', 2) == 0
+        assert decode_fractional('11010.1011011001', 2) == 1
+        assert decode_fractional('111111.1011011001', 2) == 2
+        assert decode_fractional('10001.1011011001', 2) == 3
+        assert decode_fractional('111.1011011001', 2) == 4
+        assert decode_fractional('1001.100100101', 2) == 5
+        assert decode_fractional('11.110010101', 2) == 6
+        assert decode_fractional('11.100011101', 2) == 7
+
+
 
 
 
