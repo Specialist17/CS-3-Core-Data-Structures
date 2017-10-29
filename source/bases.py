@@ -63,6 +63,44 @@ def encode(number, base):
     return "".join(digit_list[::-1])
 
 
+def encode_fractional(number, base, precision):
+    """Encode given number in base 10 to digits in given base.
+    number: int -- integer representation of number (in base 10)
+    base: int -- base to convert to
+    return: str -- string representation of number (in given base)"""
+    # Handle up to base 36 [0-9a-z]
+    assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
+    # Handle unsigned numbers only for now
+    assert number >= 0, 'number is negative: {}'.format(number)
+
+    # separate integer from decimal numbers
+    base_number = str(number).split(".")
+    decimal_num = encode(int(base_number[0]), base)
+
+    fraction_list = []
+
+    # create a decimal number with the decimal extracted from base_number
+    current_multiple = float("0." + base_number[1])
+
+    # get the current integer value
+    # fractional_binary = str(current_multiple).split(".")[0]
+    # fraction_list.append(fractional_binary)
+
+    for _ in range(precision):
+        # multiply the current decimal by the base
+        current_multiple = current_multiple * base
+
+        # get the current integer value
+        fractional_binary = str(current_multiple).split(".")[0]
+        fraction_list.append(fractional_binary)
+
+        # reset the integer value to 0
+        current_multiple = float("0." + str(current_multiple).split(".")[1])
+
+    final_binary = decimal_num + "." + "".join(fraction_list)
+    return final_binary
+
+
 def convert(digits, base1, base2):
     """Convert given digits in base1 to digits in base2.
     digits: str -- string representation of number (in base1)
@@ -97,130 +135,7 @@ def main():
         print('Converts digits from base1 to base2')
 
 
-def encode_binary():
-    # assert encode(0, 2) == '0'  # Should '' be valid?
-    print(encode(1, 2) == '1')
-    print(encode(2, 2) == '10')
-    print(encode(3, 2) == '11')
-    print(encode(4, 2) == '100')
-    print(encode(5, 2) == '101')
-    print(encode(6, 2) == '110')
-    print(encode(7, 2) == '111')
-    print(encode(8, 2) == '1000')
-    print(encode(9, 2) == '1001')
-    print(encode(10, 2) == '1010')
-    print(encode(11, 2) == '1011')
-    print(encode(12, 2) == '1100')
-    print(encode(13, 2) == '1101')
-    print(encode(14, 2) == '1110')
-    print(encode(15, 2) == '1111')
-    print(encode(248975, 2) == '111100110010001111')
-
-
-def encode_hexadecimal():
-    print(encode(10, 16) == 'a')
-    print(encode(15, 16) == 'f')
-    print(encode(153, 16) == '99')
-    print(encode(255, 16) == 'ff')
-    print(encode(2766, 16) == 'ace')
-    print(encode(3243, 16) == 'cab')
-    print(encode(48813, 16) == 'bead')
-    print(encode(64206, 16) == 'face')
-    print(encode(12648430, 16) == 'c0ffee')
-    print(encode(16435934, 16) == 'facade')
-    print(encode(3735928559, 16) == 'deadbeef')
-    print(encode(4027038225, 16) == 'f007ba11')
-
-
-def encode_1234():
-    print(encode(1234, 2) == '10011010010')
-    print(encode(1234, 3) == '1200201')
-    print(encode(1234, 4) == '103102')
-    print(encode(1234, 5) == '14414')
-    print(encode(1234, 8) == '2322')
-    print(encode(1234, 10) == '1234')
-    print(encode(1234, 16) == '4d2')
-    print(encode(1234, 32) == '16i')
-
-
-def encode_248975():
-    print(encode(248975, 2) == '111100110010001111')
-    print(encode(248975, 4) == '330302033')
-    print(encode(248975, 8) == '746217')
-    print(encode(248975, 10) == '248975')
-    print(encode(248975, 16) == '3cc8f')
-    print(encode(248975, 25) == 'fn90')
-    print(encode(248975, 32) == '7j4f')
-    print(encode(248975, 36) == '5c3z')
-
-
-def encode_into_10():
-    print(encode(2, 2) == '10')
-    print(encode(4, 4) == '10')
-    print(encode(8, 8) == '10')
-    print(encode(10, 10) == '10')
-    print(encode(16, 16) == '10')
-    print(encode(25, 25) == '10')
-    print(encode(32, 32) == '10')
-    print(encode(36, 36) == '10')
-
-
-def encode_into_1010():
-    print(encode(10, 2) == '1010')
-    print(encode(68, 4) == '1010')
-    print(encode(520, 8) == '1010')
-    print(encode(1010, 10) == '1010')
-    print(encode(4112, 16) == '1010')
-    print(encode(15650, 25) == '1010')
-    print(encode(32800, 32) == '1010')
-    print(encode(46692, 36) == '1010')
-
-
-def decode_binary():
-    print(decode('0', 2) == 0)
-    print(decode('1', 2) == 1)
-    print(decode('10', 2) == 2)
-    print(decode('11', 2) == 3)
-    print(decode('100', 2) == 4)
-    print(decode('101', 2) == 5)
-    print(decode('110', 2) == 6)
-    print(decode('111', 2) == 7)
-    print(decode('1000', 2) == 8)
-    print(decode('1001', 2) == 9)
-    print(decode('1010', 2) == 10)
-    print(decode('1011', 2) == 11)
-    print(decode('1100', 2) == 12)
-    print(decode('1101', 2) == 13)
-    print(decode('1110', 2) == 14)
-    print(decode('1111', 2) == 15)
-
-def decode_decimal():
-    print(decode('5', 10) == 5)
-    print(decode('9', 10) == 9)
-    print(decode('10', 10) == 10)
-    print(decode('25', 10) == 25)
-    print(decode('64', 10) == 64)
-    print(decode('99', 10) == 99)
-    print(decode('123', 10) == 123)
-    print(decode('789', 10) == 789)
-    print(decode('2345', 10) == 2345)
-    print(decode('6789', 10) == 6789)
-    print(decode('13579', 10) == 13579)
-    print(decode('24680', 10) == 24680)
-
-def decode_hexadecimal():
-    print(decode('a', 16) == 10)
-    print(decode('f', 16) == 15)
-    print(decode('99', 16) == 153)
-    print(decode('ff', 16) == 255)
-    print(decode('ace', 16) == 2766)
-    print(decode('cab', 16) == 3243)
-    print(decode('bead', 16) == 48813)
-    print(decode('face', 16) == 64206)
-    print(decode('c0ffee', 16) == 12648430)
-    print(decode('facade', 16) == 16435934)
-    print(decode('deadbeef', 16) == 3735928559)
-    print(decode('f007ba11', 16) == 4027038225)
-
 if __name__ == '__main__':
     main()
+    print(encode_fractional(4.5374, 2, 10))
+    print(encode_fractional(1.712837, 2, 10))

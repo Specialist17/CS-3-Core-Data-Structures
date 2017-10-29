@@ -1,6 +1,6 @@
 #!python
 
-from bases import decode, encode, convert
+from bases import decode, encode, convert, encode_fractional
 import unittest
 
 
@@ -278,6 +278,27 @@ class BasesConvertTest(unittest.TestCase):
         assert convert('1101100101010001', 2, 16) == 'd951'
         assert convert('1110101001100010', 2, 16) == 'ea62'
         assert convert('1111101101110011', 2, 16) == 'fb73'
+
+
+class FractionalBasesConvertTest(unittest.TestCase):
+    def test_encode_fractional_decimal_to_binary(self):
+        # assert encode(0, 2) == '0'  # Should '' be valid?
+        assert encode_fractional(1.712837, 2, 10) == '1.1011011001'
+        assert encode_fractional(2.712837, 2, 10) == '10.1011011001'
+        assert encode_fractional(3.712837, 2, 10) == '11.1011011001'
+        # assert encode_fractional(4.712837, 2, 10) == '100'
+        # assert encode_fractional(5.712837, 2, 10) == '101'
+        # assert encode_fractional(6.712837, 2, 10) == '110'
+        # assert encode_fractional(7.712837, 2, 10) == '111'
+        # assert encode_fractional(8.712837, 2, 10) == '1000'
+        # assert encode_fractional(9.712837, 2, 10) == '1001'
+        # assert encode_fractional(1.7128370, 2, 10) == '1010'
+        # assert encode_fractional(1.7128371, 2, 10) == '1011'
+        # assert encode_fractional(1.7128372, 2, 10) == '1100'
+        # assert encode_fractional(1.7128373, 2, 10) == '1101'
+        # assert encode_fractional(1.7128374, 2, 10) == '1110'
+        # assert encode_fractional(1.7128375, 2, 10) == '1111'
+
 
 
 if __name__ == '__main__':
