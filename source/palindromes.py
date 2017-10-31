@@ -2,9 +2,9 @@
 
 import string
 # Hint: Use these string constants to ignore capitalization and/or punctuation
-# string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
-# string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-# string.ascii_letters is ascii_lowercase + ascii_uppercase
+string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
+string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+string.ascii_letters is string.ascii_uppercase + string.ascii_lowercase
 
 
 def is_palindrome(text):
@@ -13,7 +13,7 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
     # return is_palindrome_recursive(text)
 
 
@@ -23,12 +23,59 @@ def is_palindrome_iterative(text):
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
 
+    if text == "":
+        return True
+
+    text_list = []
+    count = 0
+
+    for char in text:
+        if char in string.ascii_letters:
+            text_list.append(char)
+
+    print(text_list)
+
+    for characters in zip(reversed(text_list), text_list):
+        print(characters)
+
+        if characters[0].lower() == characters[1].lower():
+            count += 1
+        else:
+            continue
+
+
+    if count == len(text_list):
+        return True
+
+    return False
+
+
+
+
 
 def is_palindrome_recursive(text, left=None, right=None):
     # TODO: implement the is_palindrome function recursively here
     pass
     # once implemented, change is_palindrome to call is_palindrome_recursive
     # to verify that your iterative implementation passes all tests
+
+    if left is None and right is None:
+        left = 0
+        right = len(text) - 1
+
+    if left >= right:
+        return True
+
+    if text[left] in string.ascii_letters and text[right] in string.ascii_letters:
+        if text[left].lower() == text[right].lower():
+            return is_palindrome_recursive(text, left + 1, right - 1)
+        else:
+            return False
+    elif text[left] not in string.ascii_letters:
+        return is_palindrome_recursive(text, left + 1, right)
+    elif text[right] not in string.ascii_letters:
+        return is_palindrome_recursive(text, left, right - 1)
+
 
 
 def main():
@@ -47,3 +94,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    is_palindrome_iterative("Race Fast Safe Car")
