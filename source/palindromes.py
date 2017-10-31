@@ -13,7 +13,7 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_recursive(text)
+    return is_palindrome_iterative(text)
     # return is_palindrome_recursive(text)
 
 
@@ -26,31 +26,59 @@ def is_palindrome_iterative(text):
     if text == "":
         return True
 
-    text_list = []
-    count = 0
+    left = 0
+    right = len(text) - 1
 
-    for char in text:
-        if char in string.ascii_letters:
-            text_list.append(char)
+    while left <= right:
+        left_letter = text[left] in string.ascii_letters
+        right_letter = text[right] in string.ascii_letters
+        print(text[left].lower(), text[right].lower())
+        print(left_letter, right_letter)
+        print(left, right)
+        if left_letter and right_letter:
+            if text[left].lower() == text[right].lower():
+                left += 1
+                right -= 1
+            else:
+                return False
+        elif not left_letter:
+            left += 1
+        elif not right_letter:
+            right -= 1
 
-    print(text_list)
-
-    for characters in zip(reversed(text_list), text_list):
-        print(characters)
-
-        if characters[0].lower() == characters[1].lower():
-            count += 1
         else:
-            continue
+            return False
 
+    return True
 
-    if count == len(text_list):
-        return True
-
-    return False
-
-
-
+    # if text == "":
+    #     return True
+    #
+    # text_list = []
+    # count = 0
+    #
+    #
+    # # O(n*k) time
+    # for char in text:   # O(n) time, where n is length of text
+    #     if char in string.ascii_letters:  # O(k) time, where k is length of string.ascii_letters
+    #     # if contains(string.ascii_letters, char)
+    #         text_list.append(char)  # O(1), on average
+    #
+    # print(text_list)
+    #
+    # for characters in zip(reversed(text_list), text_list):
+    #     print(characters)
+    #
+    #     if characters[0].lower() == characters[1].lower():
+    #         count += 1
+    #     else:
+    #         continue
+    #
+    #
+    # if count == len(text_list):
+    #     return True
+    #
+    # return False
 
 
 def is_palindrome_recursive(text, left=None, right=None):
@@ -66,16 +94,20 @@ def is_palindrome_recursive(text, left=None, right=None):
     if left >= right:
         return True
 
-    if text[left] in string.ascii_letters and text[right] in string.ascii_letters:
+    left_letter = text[left] in string.ascii_letters
+    right_letter = text[right] in string.ascii_letters
+
+    if left_letter and right_letter:
         if text[left].lower() == text[right].lower():
             return is_palindrome_recursive(text, left + 1, right - 1)
         else:
             return False
-    elif text[left] not in string.ascii_letters:
-        return is_palindrome_recursive(text, left + 1, right)
-    elif text[right] not in string.ascii_letters:
-        return is_palindrome_recursive(text, left, right - 1)
-
+    elif not left_letter:
+        left = left + 1
+        return is_palindrome_recursive(text, left, right)
+    elif not right_letter:
+        right = right - 1
+        return is_palindrome_recursive(text, left, right)
 
 
 def main():
