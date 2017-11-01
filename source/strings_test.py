@@ -117,6 +117,40 @@ class StringsTest(unittest.TestCase):
         # You'll need a lot more than this to test your algorithm's robustness
         # ...
 
+    def test_find_all_indexes_in_spanish(self):
+        assert find_all_indexes('pero y tu? que te pasa, nena?', 'tu? que') == [7]  # overlapping prefix
+        # assert find_all_indexes('bananas', 'nas') == [4]  # overlapping prefix
+        # assert find_all_indexes('abcabcabc', 'abc') == [0, 3, 6]  # multiple occurrences
+        # assert find_all_indexes('abcabcab', 'abc') == [0, 3]  # multiple occurrences
+        # assert find_all_indexes('abcabcdef', 'abcd') == [3]  # overlapping prefix
+        # assert find_all_indexes('abcabcdef', 'abcdef') == [3]  # overlapping prefix
+        # assert find_all_indexes('abcabcdabcde', 'abcde') == [7]  # overlapping prefix
+        # assert find_all_indexes('abcabcdabcde', 'abcd') == [3, 7]  # multiple occurrences, overlapping prefix
+        # assert find_all_indexes('abra cadabra', 'abra') == [0, 8]  # multiple occurrences
+        # assert find_all_indexes('abra cadabra', 'adab') == [6]  # overlapping prefix
+
+    def test_contains_in_spanish(self):
+        assert contains('pero y tu? que te pasa, nena?', 'tu? que te pasa, nena?') == True
+        assert contains('''pero y tu?\nque te pasa, nena?''', '''tu?\nque''') == True
+        assert contains('''Curabitur blandit: tempus porttitor. Aenean lacinia bibendum, nulla (jiripolla), sed consectetur.''',
+                        '''blandit: tempus porttitor. Aenean lacinia bibendum, nulla (jiripolla),''') == True
+        assert contains('''Curabitur blandit: tempus porttitor. Aenean lacinia bibendum, nulla (jiripolla), sed consectetur.''',
+                        '''(jirip''') == True
+
+    def test_find_index_with_complex_patterns(self):
+        # Difficult test cases (examples) with complex patterns
+        assert find_index('ababc', 'abc') == 2  # overlapping prefix
+        assert find_index('bananas', 'nas') == 4  # overlapping prefix
+        assert find_index('abcabcabc', 'abc') == 0  # multiple occurrences
+        assert find_index('abcabcab', 'abc') == 0  # multiple occurrences
+        assert find_index('abcabcdef', 'abcd') == 3  # overlapping prefix
+        assert find_index('abcabcdef', 'abcdef') == 3  # overlapping prefix
+        assert find_index('abcabcdabcde', 'abcde') == 7  # overlapping prefix
+        assert find_index('abcabcdabcde', 'abcd') == 3  # multiple occurrences, overlapping prefix
+        assert find_index('abra cadabra', 'abra') == 0  # multiple occurrences
+        assert find_index('abra cadabra', 'adab') == 6  # overlapping prefix
+
+
 
 if __name__ == '__main__':
     unittest.main()
