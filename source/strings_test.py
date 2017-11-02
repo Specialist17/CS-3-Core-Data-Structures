@@ -129,13 +129,22 @@ class StringsTest(unittest.TestCase):
         # assert find_all_indexes('abra cadabra', 'abra') == [0, 8]  # multiple occurrences
         # assert find_all_indexes('abra cadabra', 'adab') == [6]  # overlapping prefix
 
-    def test_contains_in_spanish(self):
+    def test_contains_in_lorem_ipsum(self):
         assert contains('pero y tu? que te pasa, nena?', 'tu? que te pasa, nena?') == True
         assert contains('''pero y tu?\nque te pasa, nena?''', '''tu?\nque''') == True
         assert contains('''Curabitur blandit: tempus porttitor. Aenean lacinia bibendum, nulla (jiripolla), sed consectetur.''',
                         '''blandit: tempus porttitor. Aenean lacinia bibendum, nulla (jiripolla),''') == True
         assert contains('''Curabitur blandit: tempus porttitor. Aenean lacinia bibendum, nulla (jiripolla), sed consectetur.''',
                         '''(jirip''') == True
+        assert contains('''Curabitur blandit: tempus porttitor. Aenean lacinia bibendum, nulla (jiripolla), sed consectetur.''',
+                        '''(jirip''') == True
+        # False cases
+        assert contains('''Curabitur blandit: tempus porttitor. Aenean lacinia bibendum, nulla (jiripolla), sed consectetur.''',
+                        '''(jiripola''') == False
+        assert contains('''Curabitur blandit: tempus porttitor. Aenean lacinia bibendum, nulla (jiripolla), sed consectetur.''',
+                        '''(irip''') == False
+        assert contains('''aaaaaaab''',
+                        '''aaaab''') == True
 
     def test_find_index_with_complex_patterns(self):
         # Difficult test cases (examples) with complex patterns
@@ -149,6 +158,7 @@ class StringsTest(unittest.TestCase):
         assert find_index('abcabcdabcde', 'abcd') == 3  # multiple occurrences, overlapping prefix
         assert find_index('abra cadabra', 'abra') == 0  # multiple occurrences
         assert find_index('abra cadabra', 'adab') == 6  # overlapping prefix
+        assert find_index('aaaaaaab', 'aaaab') == 3
 
 
 

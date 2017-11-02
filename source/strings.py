@@ -7,12 +7,16 @@ def contains(text, pattern):
     # TODO: Implement contains here (iteratively and/or recursively)
     # iterate over the text
 
-    # find the
+    # check if the patter is an empty string
     if pattern == "":
         return True
 
+    # iterate through each character in the text
     for index, char in enumerate(text):
+        # keep track of a count to compare with item
         count = 0
+
+        # 
         for index2, pattern_char in enumerate(pattern):
             if text[index+index2] == pattern[index2]:
                 count += 1
