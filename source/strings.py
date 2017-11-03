@@ -13,10 +13,10 @@ def contains(text, pattern):
 
     # iterate through each character in the text
     for index, char in enumerate(text):
-        # keep track of a count to compare with item
+        # keep track of a count to compare with i
         count = 0
 
-        # 
+        #
         for index2, pattern_char in enumerate(pattern):
             if text[index+index2] == pattern[index2]:
                 count += 1
