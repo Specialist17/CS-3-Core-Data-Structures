@@ -119,6 +119,7 @@ class LinkedList(object):
             # Otherwise insert new node before head
             new_node.next = self.head
         # Update head to new node regardless
+        self.size += 1 
         self.head = new_node
 
     def find(self, quality):
@@ -190,6 +191,7 @@ class LinkedList(object):
                     previous.next = None
                 # Update tail to the previous node regardless
                 self.tail = previous
+            self.size -= 1
         else:
             # Otherwise raise an error to tell the user that delete has failed
             raise ValueError('Item not found: {}'.format(item))
