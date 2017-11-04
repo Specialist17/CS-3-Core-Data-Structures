@@ -119,7 +119,7 @@ class LinkedList(object):
             # Otherwise insert new node before head
             new_node.next = self.head
         # Update head to new node regardless
-        self.size += 1 
+        self.size += 1
         self.head = new_node
 
     def find(self, quality):
@@ -146,8 +146,18 @@ class LinkedList(object):
         Best case running time: ??? under what conditions? [TODO]
         Worst case running time: ??? under what conditions? [TODO]"""
         # TODO: Find the node containing the given old_item and replace its
-        # data with new_item, without creating a new node object
-        pass
+
+        node = self.head
+
+        while node is not None:
+            if node.data == old_item:
+                node.data = new_item
+                break
+
+            node = node.next
+
+        if node is None:
+            raise ValueError
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
