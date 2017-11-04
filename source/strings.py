@@ -13,7 +13,7 @@ def contains(text, pattern):
 
     # iterate through each character in the text
     for index, char in enumerate(text):
-        # keep track of a count to compare with i
+        # keep track of a count to 
         count = 0
 
         #
