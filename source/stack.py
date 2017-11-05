@@ -1,6 +1,6 @@
 #!python
 
-from linkedlist import LinkedList
+from doublylinkedlist import DoublyLinkedList
 
 
 # Implement LinkedStack below, then change the assignment at the bottom
@@ -10,7 +10,7 @@ class LinkedStack(object):
     def __init__(self, iterable=None):
         """Initialize this stack and push the given items, if any."""
         # Initialize a new linked list to store the items
-        self.list = LinkedList()
+        self.list = DoublyLinkedList()
         self.size = 0
         if iterable is not None:
             for item in iterable:
@@ -49,7 +49,12 @@ class LinkedStack(object):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty."""
         # TODO: Remove and return top item, if any
-        pass
+        if self.is_empty():
+            raise ValueError
+        item = self.list.tail
+        self.list.tail = self.list.tail.prev
+        self.size -= 1
+        return item.data
 
 
 
