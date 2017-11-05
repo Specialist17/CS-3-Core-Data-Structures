@@ -7,25 +7,10 @@ def contains(text, pattern):
     # TODO: Implement contains here (iteratively and/or recursively)
     # iterate over the text
 
-    # check if the patter is an empty string
-    if pattern == "":
-        return True
+    if find_index(text, pattern) is None:
+        return False
 
-    # iterate through each character in the text
-    for index, char in enumerate(text):
-        # keep track of a count to 
-        count = 0
-
-        #
-        for index2, pattern_char in enumerate(pattern):
-            if text[index+index2] == pattern[index2]:
-                count += 1
-            else:
-                break
-        if count == len(pattern):
-            return True
-
-    return False
+    return True
 
 
 def find_index(text, pattern):
@@ -37,17 +22,22 @@ def find_index(text, pattern):
     if pattern == "":
         return 0
 
-    for index, char in enumerate(text):
-        count = 0
-        for index2, pattern_char in enumerate(pattern):
-            if text[index+index2] == pattern[index2]:
-                count += 1
-            else:
-                break
-        if count == len(pattern):
-            return index
+    # for index, char in enumerate(text):
+    #     count = 0
+    #     for index2, pattern_char in enumerate(pattern):
+    #         if text[index+index2] == pattern[index2]:
+    #             count += 1
+    #         else:
+    #             break
+    #     if count == len(pattern):
+    #         return index
 
-    return None
+    all_indexes = find_all_indexes(text, pattern)
+    if all_indexes == []:
+        return None
+    else:
+        return all_indexes[0]
+
 
 
 def find_all_indexes(text, pattern):
@@ -63,14 +53,11 @@ def find_all_indexes(text, pattern):
             index_list.append(index)
         return index_list
 
+    # index = 0
     for index, char in enumerate(text):
         count = 0
         for index2, pattern_char in enumerate(pattern):
             if index + index2 < (len(text)):
-                print(index2)
-                print("text value", text[index+index2], "pattern value", pattern[index2])
-                print("text index", index+index2, "pattern index", index2)
-                print(text[index+index2] == pattern[index2])
                 if text[index+index2] == pattern[index2]:
                     count += 1
                     continue
@@ -78,8 +65,6 @@ def find_all_indexes(text, pattern):
                     break
         if count == len(pattern):
             index_list.append(index)
-
-    print("index_list", index_list)
 
     return index_list
 
