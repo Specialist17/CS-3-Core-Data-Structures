@@ -79,6 +79,30 @@ class LinkedList(object):
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # TODO: Find the node at the given index and return its data
+        node = self.head
+        for x in range(index):
+            if node is not None:
+                node = node.next
+
+        return node.data
+
+
+    def get_node_at_index(self, index):
+        """Return the item at the given index in this linked list, or
+        raise ValueError if the given index is out of range of the list size.
+        Best case running time: ??? under what conditions? [TODO]
+        Worst case running time: ??? under what conditions? [TODO]"""
+        # Check if the given index is out of range and if so raise an error
+        if not (0 <= index < self.size):
+            raise ValueError('List index out of range: {}'.format(index))
+        # TODO: Find the node at the given index and return its data
+        node = self.head
+        for x in range(index):
+            if node is not None:
+                node = node.next
+
+        return node
+
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
@@ -89,6 +113,26 @@ class LinkedList(object):
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # TODO: Find the node before the given index and insert item after it
+        new_node = Node(item)
+        node = self.head
+
+        if index == 0:
+            self.prepend(item)
+            return
+
+        if self.is_empty() or index == self.size:
+            # Assign head to new node
+            self.append(item)
+            return
+
+        prev_node = self.get_node_at_index(index - 1)
+
+        if prev_node.next.next is not None:
+            prev_node.next.next = prev_node.next
+
+        prev_node.next = Node(item)
+        self.size += 1
+
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
