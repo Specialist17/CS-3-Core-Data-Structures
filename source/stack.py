@@ -31,7 +31,8 @@ class LinkedStack(object):
         return self.size
 
     def push(self, item):
-        """Insert the given item on the top of this stack."""
+        """Insert the given item on the top of this stack.
+        O(1), we append an item to the tail, we always keep track of the tail"""
         # TODO: Push given item
         self.list.append(item)
         self.size += 1
@@ -47,7 +48,10 @@ class LinkedStack(object):
 
     def pop(self):
         """Remove and return the item on the top of this stack,
-        or raise ValueError if this stack is empty."""
+        or raise ValueError if this stack is empty.
+        O(1), we remove an item from the tail, we always keep track of the tail
+        and I also used a doubly linked list so we have the previous node pointer
+        which helps with deleting the last item in the list without traversing it"""
         # TODO: Remove and return top item, if any
         if self.is_empty():
             raise ValueError
@@ -85,7 +89,9 @@ class ArrayStack(object):
         return len(self.list)
 
     def push(self, item):
-        """Insert the given item on the top of this stack."""
+        """Insert the given item on the top of this stack.
+        O(1) in average, becase when appending at the end of array we sometimes
+        have to reallocate the entire list when Appending, but it's a relatively rare case"""
         # TODO: Insert given item
         self.list.append(item)
 
@@ -99,7 +105,8 @@ class ArrayStack(object):
 
     def pop(self):
         """Remove and return the item on the top of this stack,
-        or raise ValueError if this stack is empty."""
+        or raise ValueError if this stack is empty.
+        O(1), removing the last element of an array is a constant time operation"""
         # TODO: Remove and return top item, if any
 
         if self.is_empty():

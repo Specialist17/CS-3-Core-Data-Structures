@@ -32,7 +32,8 @@ class LinkedQueue(object):
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running Time and why"""
+        Running Time and why
+        O(1) every case, because we keep track of the tail at all times, and enqueue appends at the tail"""
         # TODO: Insert given item
         self.list.append(item)             # set tail to the Node(item), constant time
         self.size += 1
@@ -48,7 +49,8 @@ class LinkedQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running Time and why"""
+        Running Time and why
+        O(1), because we keep track of the head at all times and dequeue removes at the head"""
         # TODO: Remove and return front item, if any
 
         if self.is_empty():
@@ -88,7 +90,9 @@ class ArrayQueue(object):
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running Time and why"""
+        Running Time and why
+        O(1) in average, becase when appending at the end of array we sometimes
+        have to reallocate the entire list when Appending, but it's a relatively rare case"""
         # TODO: Insert given item
         self.list.append(item)
 
@@ -103,7 +107,9 @@ class ArrayQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running Time and why"""
+        Running Time and why
+        O(n) all cases, we have to shift all elements every time we remove something from
+        the beginning of the array"""
         # TODO: Remove and return front item, if any
         if self.is_empty():
             raise ValueError
