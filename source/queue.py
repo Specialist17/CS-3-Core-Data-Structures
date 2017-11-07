@@ -56,7 +56,7 @@ class LinkedQueue(object):
         if self.is_empty():
             raise ValueError("Head is empty, can't dequeue")
 
-        head = self.list.head.data
+        head = self.front()
         self.list.head = self.list.head.next
         self.size -= 1
         return head

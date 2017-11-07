@@ -34,14 +34,14 @@ class LinkedStack(object):
         """Insert the given item on the top of this stack.
         O(1), we append an item to the tail, we always keep track of the tail"""
         # TODO: Push given item
-        self.list.append(item)
+        self.list.prepend(item)
         self.size += 1
 
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
         # TODO: Return top item, if any
-        item = self.list.tail
+        item = self.list.head
         if item is not None:
             return item.data
         return item
@@ -55,10 +55,10 @@ class LinkedStack(object):
         # TODO: Remove and return top item, if any
         if self.is_empty():
             raise ValueError
-        item = self.list.tail
-        self.list.tail = self.list.tail.prev
+        item = self.peek()
+        self.list.head = self.list.head.next
         self.size -= 1
-        return item.data
+        return item
 
 
 
@@ -85,14 +85,12 @@ class ArrayStack(object):
 
     def length(self):
         """Return the number of items in this stack."""
-        # TODO: Count number of items
         return len(self.list)
 
     def push(self, item):
         """Insert the given item on the top of this stack.
         O(1) in average, becase when appending at the end of array we sometimes
         have to reallocate the entire list when Appending, but it's a relatively rare case"""
-        # TODO: Insert given item
         self.list.append(item)
 
     def peek(self):
@@ -111,14 +109,18 @@ class ArrayStack(object):
 
         if self.is_empty():
             raise ValueError
-        return self.list.pop()
+        item = self.peek()
+        # self.list.remove(item)  # removes *first* occurrence of item
+        del list[len(self.list) - 1]
+        return item
+        # return self.list.pop()
 
 
 
 # Implement LinkedStack and ArrayStack above, then change the assignment below
 # to use each of your Stack implementations to verify they each pass all tests
-# Stack = LinkedStack
-Stack = ArrayStack
+Stack = LinkedStack
+# Stack = ArrayStack
 
 
 def test_init():

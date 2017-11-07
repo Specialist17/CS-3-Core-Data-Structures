@@ -65,6 +65,45 @@ def find_all_indexes(text, pattern):
     return index_list                                       # return list, O(1)
 
 
+def find_closest_match(routes, pattern):
+    """Return a list of starting indexes of all occurrences of pattern in text,
+    or an empty list if not found."""
+    """ O(n) best case, O(n*m) worst case
+        n = length of text, m = length of pattern"""
+    # assert isinstance(routes, str), 'text is not a string: {}'.format(routes)
+    # assert isinstance(pattern, str), 'pattern is not a string: {}'.format(pattern)
+    # TODO: Implement find_all_indexes here (iteratively and/or recursively)
+
+    best_match_index = 0
+    prev_count = 0
+
+    for outer_index, number in enumerate(routes):
+        count = 0
+        if len(number[0]) > len(pattern):
+            for inner_index in range(len(pattern)):
+                if number[0][inner_index] == pattern[inner_index]:
+                    count += 1
+                    if count > prev_count:
+                        prev_count = count
+                        best_match_index = outer_index
+                    continue
+                else:
+                    break
+        else:
+            for inner_index in range(len(number[0])):
+                if number[0][inner_index] == pattern[inner_index]:
+                    count += 1
+                    if count > prev_count:
+                        prev_count = count
+                        best_match_index = outer_index
+                    continue
+                else:
+                    break
+    
+    return routes[best_match_index]
+
+
+
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)
     print('contains({!r}, {!r}) => {}'.format(text, pattern, found))
@@ -94,5 +133,18 @@ def main():
         print("find_all_indexes('abra cadabra', 'abra') => [0, 8]")
 
 
+def phones(routes_file, numbers_file):
+    routes = open(routes_file, "r")
+    read_file = routes.read().split()
+    read_file = list(map(lambda x: x.split(","), read_file))
+
+    numbers = open(numbers_file, "r")
+    numbers_read_file = numbers.read()
+
+    closest_match = find_closest_match(read_file, numbers_read_file)
+    print(closest_match)
+
+
 if __name__ == '__main__':
-    main()
+    # main()
+    phones("../teleo_project/Call_Routing/route-costs-100.txt", "../teleo_project/Call_Routing/phone-numbers-1.txt")
