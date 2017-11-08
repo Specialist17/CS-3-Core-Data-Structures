@@ -149,20 +149,29 @@ def phones(routes_file, numbers_file):
     routes = open(routes_file, "r")
     read_file = routes.read().split()
     read_file = list(map(lambda x: tuple(x.split(",")), read_file))
+    routes.close()
 
     numbers = open(numbers_file, "r")
     numbers_read_file = numbers.read().split()
-    print(numbers_read_file)
+    numbers.close()
+
+
+    output = open("output_test.txt", "w")
+
     for number in numbers_read_file:
         price = find_closest_match(read_file, number)
         if len(price) > 1:
+            output.write(number + ", " + str(price[0][1]) + "-" + str(price[len(price) - 1][1]) + "\n")
             print("price range is between: " + str(price[0][1]) + "-" + str(price[len(price) - 1][1]))
         else:
+            output.write(number + ", " + str(price[0][1]) + "\n")
             print("price is: " + str(price[0][1]))
+
+    output.close()
 
 
 
 if __name__ == '__main__':
     # main()
 
-    phones("../teleo_project/Call_Routing/route-costs-35000.txt", "../teleo_project/Call_Routing/phone-numbers-1000.txt")
+    phones("../teleo_project/Call_Routing/route-costs-35000.txt", "../teleo_project/Call_Routing/phone-numbers-100.txt")
