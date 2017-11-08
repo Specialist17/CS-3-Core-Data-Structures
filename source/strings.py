@@ -74,7 +74,7 @@ def find_closest_match(routes, pattern):
     # assert isinstance(pattern, str), 'pattern is not a string: {}'.format(pattern)
     # TODO: Implement find_all_indexes here (iteratively and/or recursively)
 
-    best_match_index = 0
+    best_match_index = []
     prev_count = 0
 
     for outer_index, number in enumerate(routes):
@@ -85,7 +85,10 @@ def find_closest_match(routes, pattern):
                     count += 1
                     if count > prev_count:
                         prev_count = count
-                        best_match_index = outer_index
+                        best_match_index = [number]
+                    elif count == prev_count:
+                        prev_count = count
+                        best_match_index.append(number)
                     continue
                 else:
                     break
@@ -95,12 +98,21 @@ def find_closest_match(routes, pattern):
                     count += 1
                     if count > prev_count:
                         prev_count = count
-                        best_match_index = outer_index
+                        best_match_index = [number]
+                    elif count == prev_count:
+                        prev_count = count
+                        best_match_index.append(number)
                     continue
                 else:
                     break
-    
-    return routes[best_match_index]
+
+    # if len(best_match_index) > 1:
+    #     best_index = sorted(best_match_index, key=lambda x: x[1])
+    #     # best_index = list(filter(lambda x, y: float(x[1]) > float(y[1]), best_match_index))
+    #     print(best_index)
+    #     return best_index
+    # else:
+    return sorted(best_match_index, key=lambda x: x[1])
 
 
 
@@ -136,15 +148,21 @@ def main():
 def phones(routes_file, numbers_file):
     routes = open(routes_file, "r")
     read_file = routes.read().split()
-    read_file = list(map(lambda x: x.split(","), read_file))
+    read_file = list(map(lambda x: tuple(x.split(",")), read_file))
 
     numbers = open(numbers_file, "r")
-    numbers_read_file = numbers.read()
+    numbers_read_file = numbers.read().split()
+    print(numbers_read_file)
+    for number in numbers_read_file:
+        price = find_closest_match(read_file, number)
+        if len(price) > 1:
+            print("price range is between: " + str(price[0][1]) + "-" + str(price[len(price) - 1][1]))
+        else:
+            print("price is: " + str(price[0][1]))
 
-    closest_match = find_closest_match(read_file, numbers_read_file)
-    print(closest_match)
 
 
 if __name__ == '__main__':
     # main()
-    phones("../teleo_project/Call_Routing/route-costs-100.txt", "../teleo_project/Call_Routing/phone-numbers-1.txt")
+
+    phones("../teleo_project/Call_Routing/route-costs-35000.txt", "../teleo_project/Call_Routing/phone-numbers-1000.txt")
