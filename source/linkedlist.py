@@ -33,6 +33,16 @@ class LinkedList(object):
         """Return a string representation of this linked list."""
         return 'LinkedList({!r})'.format(self.items())
 
+    def __iter__(self):     #linear time
+        # Remember, self is our UnorderedList.
+        # In order to get to the first Node, we must do
+        current = self.head  # Set variable, constant time
+        # and then, until we have reached the end:
+        while current is not None:  # while loop, worst case is O(n)
+            yield current   # create an iterator generator, constant time
+            # in order to get from one Node to the next one:
+            current = current.next  # Set variable, constant time
+
     def items(self):
         """Return a list of all items in this linked list.
         Best and worst case running time: Theta(n) for n items in the list
