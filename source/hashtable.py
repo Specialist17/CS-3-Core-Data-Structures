@@ -19,6 +19,17 @@ class HashTable(object):
         """Return a string representation of this hash table."""
         return 'HashTable({!r})'.format(self.items())
 
+    # def __iter__(self):
+    #     return self
+    # def __next__(self):
+    #     self.size += 1
+    #     try:
+    #         return self.buckets[self.size-1]
+    #     except IndexError:
+    #         self.size = 0
+    #         raise StopIteration  # Done iterating.
+    # next = __next__  # python2.x compatibility.
+
     def _bucket_index(self, key):
         """Return the bucket index where the given key would be stored."""
         return hash(key) % len(self.buckets)
@@ -27,7 +38,7 @@ class HashTable(object):
         """Return the load factor, the ratio of number of entries to buckets.
         Best and worst case running time: ??? under what conditions? [TODO]"""
         # TODO: Calculate load factor
-        return self.size / self.buckets
+        return self.size / len(self.buckets)
 
     def keys(self):
         """Return a list of all keys in this hash table.
@@ -116,7 +127,7 @@ class HashTable(object):
         bucket.append((key, value))
         self.size += 1
         # TODO: Check if the load factor exceeds a threshold such as 0.75
-        if self.load_factor > 0.75:
+        if self.load_factor() > 0.75:
             self._resize
 
 
@@ -149,7 +160,10 @@ class HashTable(object):
         elif new_size is 0:
             new_size = len(self.buckets) / 2  # Half size
         # TODO: Get a list to temporarily hold all current key-value entries
-        
+        temp_list = []
+        for items in ht.buckets:
+            for item in items:
+                temp_list.append(item.data)
         # TODO: Create a new list of new_size total empty linked list buckets
 
         # TODO: Insert each key-value entry into the new list of buckets,
@@ -178,6 +192,7 @@ def test_hash_table():
     print('length: ' + str(ht.length()))
     print('buckets: ' + str(len(ht.buckets)))
     print('load_factor: ' + str(ht.load_factor()))
+
 
     print('Getting entries:')
     print('get(I): ' + str(ht.get('I')))
