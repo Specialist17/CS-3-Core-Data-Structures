@@ -76,12 +76,13 @@ def find_closest_match(routes, pattern):
 
     best_match_index = []
     prev_count = 0
-
+    #  worst case O(n*m), n = length of text, m = length of pattern
     for outer_index, number in enumerate(routes):
         count = 0
+        # check if number is bigger than the pattern
         if len(number[0]) > len(pattern):
-            for inner_index in range(len(pattern)):
-                if number[0][inner_index] == pattern[inner_index]:
+            for inner_index in range(len(pattern)):                 # iterate through the pattern
+                if number[0][inner_index] == pattern[inner_index]:  # compare the current character in the number to the current character in the pattern
                     count += 1
                     if count > prev_count:
                         prev_count = count
@@ -92,6 +93,7 @@ def find_closest_match(routes, pattern):
                     continue
                 else:
                     break
+        # check if pattern is bigger than the number
         else:
             for inner_index in range(len(number[0])):
                 if number[0][inner_index] == pattern[inner_index]:
