@@ -167,7 +167,5 @@ class SetTest(unittest.TestCase):
         assert sB.is_subset(sA) == True
 
 
-
-
 if __name__ == '__main__':
     unittest.main()
