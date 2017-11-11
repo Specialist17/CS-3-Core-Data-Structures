@@ -84,9 +84,28 @@ class Set(object):
 
 
 def test_set():
-    s = Set(['A', 'B', 'C', 'D', 'X'])
-    print(s)
-    print(repr(s))
+    sA = Set(['John', 'Jane', 'Jack', 'Janice'])
+    sB = Set(['Jack', 'Sam', 'Susan', 'Janice'])
+    engineers = set(['John', 'Jane', 'Jack', 'Janice'])
+    programmers = set(['Jack', 'Sam', 'Susan', 'Janice'])
+
+    print("my set", sA.union(sB))
+    print("my set", sB.union(sA))
+    print("python set", engineers.union(programmers))
+    print("python set", programmers.union(engineers))
+
+    sA = Set(['John', 'Jane', 'Jack', 'Janice'])
+    sB = Set(['Jack', 'Sam', 'Susan', 'Janice'])
+    print("my set sA.intersection(sB):", sA.intersection(sB))
+    print("my set sB.intersection(sA):", sB.intersection(sA))
+    print("python set", engineers.intersection(programmers))
+    print("python set", programmers.intersection(engineers))
+
+    sA = Set(['A', 'B', 'C', 'D', 'X'])
+    sB = Set(['A', 'B', 'M', 'P', 'Z'])
+
+    print(sA.intersection(sB))
+    print(sB.intersection(sA))
 
 if __name__ == "__main__":
     test_set()
