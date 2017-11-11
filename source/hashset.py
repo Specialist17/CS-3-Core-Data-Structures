@@ -42,7 +42,9 @@ class Set(object):
 
     def union(self, other_set):
         union_set = Set()
-        union_set.table = self.table
+
+        for element in self.table.keys():
+            union_set.table.set(element, 0)
         for element in other_set.table.keys():
             union_set.table.set(element, 0)
         return union_set.table.keys()
@@ -94,8 +96,8 @@ def test_set():
     print("python set", engineers.union(programmers))
     print("python set", programmers.union(engineers))
 
-    sA = Set(['John', 'Jane', 'Jack', 'Janice'])
-    sB = Set(['Jack', 'Sam', 'Susan', 'Janice'])
+    # sA = Set(['John', 'Jane', 'Jack', 'Janice'])
+    # sB = Set(['Jack', 'Sam', 'Susan', 'Janice'])
     print("my set sA.intersection(sB):", sA.intersection(sB))
     print("my set sB.intersection(sA):", sB.intersection(sA))
     print("python set", engineers.intersection(programmers))
