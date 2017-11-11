@@ -75,8 +75,11 @@ class SetTest(unittest.TestCase):
     def test_union(self):
         sA = Set(['A', 'B', 'C', 'D', 'X'])
         sB = Set(['M', 'N', 'O', 'A', 'P'])
+        psA = set(['A', 'B', 'C', 'D', 'X'])
+        psB = set(['M', 'N', 'O', 'A', 'P'])
         assert sA.union(sB).sort() == ['A', 'B', 'C', 'D', 'X', 'M', 'N', 'O', 'P'].sort()
         assert sB.union(sA).sort() == ['A', 'B', 'C', 'D', 'X', 'M', 'N', 'O', 'P'].sort()
+        assert sA.table.keys().sort() == Set(['A', 'B', 'C', 'D', 'X']).table.keys().sort()
 
         sA = Set(['A', 'B', 'C', 'D', 'X'])
         sB = Set()

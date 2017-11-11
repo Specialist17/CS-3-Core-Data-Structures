@@ -47,6 +47,13 @@ class Set(object):
             union_set.table.set(element, 0)
         return union_set.table.keys()
 
+    # def union(self, other_set):
+    #     union_set = Set()
+    #     union_set = self.table.keys()[:]
+    #     for element in other_set.table.keys():
+    #         union_set.append(element)
+    #     return union_set
+
     def intersection(self, other_set):
         intersection_set = Set()
 
