@@ -3,7 +3,7 @@
 
 class Node(object):
 
-     def __init__(self,key,data,left=None,right=None,
+    def __init__(self,key,data,left=None,right=None,
                                        parent=None):
         self.key = key
         self.data = data
@@ -11,9 +11,9 @@ class Node(object):
         self.right_child = None
         self.parent = None
 
-    def __repr__(self):
-        """Return a string representation of this node."""
-        return 'Node({!r})'.format(self.data)
+    # def __repr__(self):
+    #     """Return a string representation of this node."""
+    #     return 'Node({!r})'.format(self.data)
 
     def has_left_child(self):
         return self.left_child
