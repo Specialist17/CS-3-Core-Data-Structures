@@ -21,7 +21,7 @@ class BinaryTreeNode(object):
     def is_branch(self):
         """Return True if this node is a branch (has at least one child)."""
         # TODO: Check if either left child or right child has a value
-        return self.left or self.right
+        return self.left is not None or self.right is not None
 
     def has_left_child(self):
         return self.left_child
