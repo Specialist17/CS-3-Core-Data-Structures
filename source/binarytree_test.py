@@ -154,6 +154,44 @@ class BinarySearchTreeTest(unittest.TestCase):
         assert tree.root.right.left.data == 5
         assert tree.root.right.right.data == 7
 
+    def test_height_with_7_items(self):
+        # Create a complete binary search tree of 7 items in level-order
+        items = [4, 2, 6, 1, 3, 5, 7]
+        tree = BinarySearchTree(items)
+        assert tree.height() == 2
+        assert tree.root.height() == 2
+        assert tree.root.left.height() == 1
+        assert tree.root.right.height() == 1
+        assert tree.root.left.left.height() == 0
+        assert tree.root.left.right.height() == 0
+        assert tree.root.right.left.height() == 0
+        assert tree.root.right.right.height() == 0
+
+
+    def test_size(self):
+        items = [8, 4, 12, 2, 6, 10, 14]
+        tree = BinarySearchTree(items)
+        assert tree.size == 7
+
+        # insert 1, 3, 5, 7, 9, 11, 13, 15
+        tree.insert(1)
+        assert tree.size == 8
+        tree.insert(3)
+        assert tree.size == 9
+        tree.insert(5)
+        assert tree.size == 10
+        tree.insert(7)
+        assert tree.size == 11
+        tree.insert(9)
+        assert tree.size == 12
+        tree.insert(11)
+        assert tree.size == 13
+        tree.insert(13)
+        assert tree.size == 14
+        tree.insert(15)
+        assert tree.size == 15
+
+
     # This space intentionally left blank (please do not delete this comment)
 
     def disabled_test_items_in_order_with_3_strings(self):
