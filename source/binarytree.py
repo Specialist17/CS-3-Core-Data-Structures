@@ -238,8 +238,8 @@ class BinarySearchTree(object):
     def _traverse_in_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive in-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        TODO: Running time: O(n) because traversal means that every node has to be visited
+        TODO: Memory usage: O(n) because we call the function for every node in the tree, stack overflow if the tree is too big"""
         # Traverse left subtree, if it exists
         if node.left:
             self._traverse_in_order_recursive(node.left, visit)
@@ -305,8 +305,8 @@ class BinarySearchTree(object):
     def _traverse_pre_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive pre-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        TODO: Running time: O(n) because traversal means that every node has to be visited
+        TODO: Memory usage: O(n) because we call the function for every node in the tree, stack overflow if the tree is too big"""
         # Visit this node's data with given function
         visit(node.data)
         # Traverse left subtree, if it exists
@@ -337,8 +337,8 @@ class BinarySearchTree(object):
     def _traverse_post_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive post-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        TODO: Running time: O(n) because traversal means that every node has to be visited
+        TODO: Memory usage: O(n) because we call the function for every node in the tree, stack overflow if the tree is too big"""
         # Traverse left subtree, if it exists
         if node.left:
             self._traverse_post_order_recursive(node.left, visit)
@@ -347,7 +347,7 @@ class BinarySearchTree(object):
         if node.right:
             self._traverse_post_order_recursive(node.right, visit)
 
-        visit(node.data)
+        visit(node.data)  # O(n) average
 
 
     # def _traverse_post_order_iterative(self, node, visit):
@@ -369,8 +369,8 @@ class BinarySearchTree(object):
     def _traverse_level_order_iterative(self, start_node, visit):
         """Traverse this binary tree with iterative level-order traversal (BFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        TODO: Running time: O(n) because traversal means that every node has to be visited
+        TODO: Memory usage:"""
         # TODO: Create queue to store nodes not yet traversed in level-order
         queue = LinkedQueue()
         # TODO: Enqueue given starting node
