@@ -4,13 +4,24 @@
 def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order."""
     # TODO: Check that all adjacent items are in order, return early if not
+    for index, item in enumerate(items):
+        if index+1 < len(items):
+            if item > items[index+1]:
+                return False
 
+    return True
 
 def bubble_sort(items):
     """Sort given items by swapping adjacent items that are out of order, and
     repeating until all items are in sorted order."""
     # TODO: Repeat until all items are in sorted order
+    while not is_sorted(items):
+        for index, item in enumerate(items):
+            if index+1 < len(items):
+                if item > items[index+1]:
+                    items[index], items[index+1] = items[index+1], items[index]
     # TODO: Swap adjacent items that are out of order
+
 
 
 def selection_sort(items):
@@ -32,9 +43,11 @@ def insertion_sort(items):
 def test_sorting(sort=bubble_sort, num_items=20, max_value=50):
     """Test sorting algorithms with a small list of random items."""
     # Create a list of 8 or 16 items in arbitrary order
+    items = [1,2,3,4,5,6,7,8,9,8]
+
     # items = [3, 5, 4, 2, 6, 8, 1, 7]
     # items = [11, 13, 8, 4, 12, 2, 14, 3, 5, 18, 6, 10, 1, 7, 9, 15]
-
+    print(is_sorted(items))
     # Create a list of items randomly sampled from range [1...max_value]
     import random
     items = random.sample(range(1, max_value + 1), num_items)
