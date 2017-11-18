@@ -31,6 +31,19 @@ def selection_sort(items):
     # TODO: Find minimum item in unsorted items
     # TODO: Swap it with first unsorted item
 
+    # Traverse through all array elements
+    for i in range(len(items)):
+        # Find the minimum element in remaining
+        # unsorted array
+        min_index = i
+        for j in range(i+1, len(items)):
+            if items[min_index] > items[j]:
+                min_index = j
+
+        # Swap the found minimum element with
+        # the first element
+        items[i], items[min_index] = items[min_index], items[i]
+
 
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
@@ -39,14 +52,25 @@ def insertion_sort(items):
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
 
+    for index in range(1, len(items)):
+        current_item = items[index]
+        current_position = index - 1
 
-def test_sorting(sort=bubble_sort, num_items=20, max_value=50):
+
+        while current_position >= 0 and items[current_position] > current_item:
+            items[current_position + 1] = items[current_position]
+            current_position -= 1
+
+        items[current_position + 1] = current_item
+
+
+def test_sorting(sort=insertion_sort, num_items=20, max_value=50):
     """Test sorting algorithms with a small list of random items."""
     # Create a list of 8 or 16 items in arbitrary order
-    items = [1,2,3,4,5,6,7,8,9,8]
+    # items = [1,2,3,4,5,6,7,8,9,8]
 
     # items = [3, 5, 4, 2, 6, 8, 1, 7]
-    # items = [11, 13, 8, 4, 12, 2, 14, 3, 5, 18, 6, 10, 1, 7, 9, 15]
+    items = [11, 13, 8, 4, 12, 2, 14, 3, 5, 18, 6, 10, 1, 7, 9, 15]
     print(is_sorted(items))
     # Create a list of items randomly sampled from range [1...max_value]
     import random
@@ -73,7 +97,7 @@ def main():
         # Terrible hack abusing globals
         sort = globals()[sort_name]
     else:
-        sort = bubble_sort
+        sort = insertion_sort
 
     # Get num_items and max_value, but don't explode if input is not an integer
     try:
@@ -92,7 +116,7 @@ def main():
         print('\trandomly sampled from the range [1...`max`] (inclusive)')
         print('\nExample: {} bubble_sort 10 20'.format(script))
         print('Initial items: [3, 15, 4, 7, 20, 6, 18, 11, 9, 7]')
-        print('Sorting items with bubble_sort(items)')
+        print('Sorting items with ' + str(sort.__name__) + '(items)')
         print('Sorted items:  [3, 4, 6, 7, 7, 9, 11, 15, 18, 20]')
 
 
