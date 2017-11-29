@@ -43,6 +43,9 @@ class LinkedList(object):
             # in order to get from one Node to the next one:
             current = current.next  # Set variable, constant time
 
+    def get_head_and_tail():
+        pass
+
     def items(self):
         """Return a list of all items in this linked list.
         Best and worst case running time: Theta(n) for n items in the list
