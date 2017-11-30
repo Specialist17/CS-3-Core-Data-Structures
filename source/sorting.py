@@ -142,16 +142,15 @@ def merge_sort(items):
     TODO: Running time: O(n*log(n)) all the cases
     TODO: Memory usage: O(n*log(n)) all the cases because we have to create new lists every
     time we split lists in half and when we merge them back"""
-    # TODO: Check if list is so small it's already sorted (base case)
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half by recursively calling merge sort
-    # TODO: Merge sorted halves into one list in sorted order
-    pivot = int(len(items)/2)
+    # Check if list is so small it's already sorted (base case)
+    # Split items list into approximately equal halves
+    # Sort each half by recursively calling merge sort
+    # Merge sorted halves into one list in sorted order
 
-    if len(items) == 0 or len(items) == 1:
-        return items
 
-    else:
+    if len(items) > 1:
+        pivot = int(len(items)/2)
+
         left = items[:pivot]
         merge_sort(left)
         right = items[pivot:]
