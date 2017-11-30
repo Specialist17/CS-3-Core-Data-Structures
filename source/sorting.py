@@ -75,34 +75,43 @@ def insertion_sort(items):
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    TODO: Running time: O(n + m), where n is the size of items 1
+        and m is the size of items 2
+    TODO: Memory usage: O(n + m) Why and under what conditions?"""
     merged_list = []
-    items1_index = 0
-    items2_index = 0
-    item_count = len(items1) + len(items2)
-    x = 0
-    # TODO: Repeat until one list is empty
-    while items2_index < len(items2) and items1_index < len(items1):
+    left_index = 0
+    right_index = 0
 
-        if items1[items1_index] <= items2[items2_index]:
-            merged_list.append(items1[items1_index])
-            items1_index += 1
-        elif items1[items1_index] >= items2[items2_index]:
-            merged_list.append(items2[items2_index])
-            items2_index += 1
+    # Repeat until one list is empty
+    while right_index < len(items2) and left_index < len(items1):
+        left = items1[left_index]
+        right = items2[right_index]
+        if left <= right:
+            merged_list.append(left)
+            left_index += 1
+        elif left >= right:
+            merged_list.append(right)
+            right_index += 1
 
+    # only one these is going to run
+    # add remaining items from items1
+    for index in range(left_index, len(items1)):
+        merged_list.append(items1[index])
 
-    if items1_index == len(items1):
-        # merged_list.append(items2[items2_index])
-        # items2_index += 1
-        merged_list.extend(items2[items2_index:])
-        # break
-    elif items2_index == len(items2):
-        # merged_list.append(items1[items1_index])
-        # items1_index += 1
-        merged_list.extend(items1[items1_index:])
-        # break
+    # add remaining items from items2
+    for index in range(right_index, len(items2)):
+        merged_list.append(items2[index])
+
+    # if items1_index == len(items1):
+    #     # merged_list.append(items2[right_index])
+    #     # right_index += 1
+    #     merged_list.extend(items2[right_index:])
+    #     # break
+    # elif right_index == len(items2):
+    #     # merged_list.append(items1[items1_index])
+    #     # items1_index += 1
+    #     merged_list.extend(items1[items1_index:])
+    #     # break
 
     return merged_list
     # TODO: Find minimum item in both lists and append it to new list
@@ -113,17 +122,17 @@ def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each with an iterative sorting algorithm, and merging results into
     a list in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    pivot = int(len(items)/2)
+    TODO: Running time: O((n^2)/2) because it divides the work in 2 halves
+    TODO: Memory usage: O(2n) = O(n) because we create two halves of the original list to sort
+    and then create another list to merge the sorted half lists"""
+    pivot = len(items)//2
     left = items[:pivot]
     right = items[pivot:]
 
     bubble_sort(left)
     bubble_sort(right)
 
-    merged = merge(left, right)
-    items[:] = merged
+    items[:] = merge(left, right)
 
 
 
@@ -143,9 +152,11 @@ def merge_sort(items):
         return items
 
     else:
-        left = merge_sort(items[:pivot])
-        right = merge_sort(items[pivot:])
-        return merge(left, right)
+        left = items[:pivot]
+        merge_sort(left)
+        right = items[pivot:]
+        merge_sort(right)
+        items[:] = merge(left, right)
 
 
 def random_ints(count=20, min=1, max=50):

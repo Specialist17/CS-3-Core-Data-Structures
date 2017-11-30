@@ -18,6 +18,11 @@ class IsSortedTest(unittest.TestCase):
         assert is_sorted([3, 3]) is True  # Duplicate items are in order
         assert is_sorted([3, 5]) is True
         assert is_sorted([3, 5, 7]) is True
+        assert is_sorted([2, 3, 4, 7, 8, 11, 14, 19, 20, 23, 24,
+                          25, 33, 34, 36, 39, 41, 42, 47, 48, 50,
+                          52, 53, 56, 57, 59, 60, 61, 62, 63,
+                          66, 67, 70, 71, 72, 75, 76, 77, 78,
+                          79, 84, 85, 86, 89, 90, 91, 92, 93, 96, 99]) is True
         # TODO: Write more positive test cases with assert is True statements
         # You'll need a lot more than this to test sorting algorithm robustness
         # ...
@@ -27,6 +32,11 @@ class IsSortedTest(unittest.TestCase):
         assert is_sorted([5, 3]) is False
         assert is_sorted([3, 5, 3]) is False
         assert is_sorted([7, 5, 3]) is False
+        assert is_sorted([77, 82, 26, 86, 17, 51, 31, 5, 40, 49, 13,
+                          23, 3, 10, 64, 19, 2, 92, 83, 61, 52, 16,
+                          78, 55, 53, 79, 29, 97, 94, 18, 60, 24, 32,
+                          43, 42, 30, 57, 93, 67, 33, 6, 66, 59, 75, 69,
+                          68, 96, 81, 11, 4]) is False
         # TODO: Write more negative test cases with assert is False statements
         # You'll need a lot more than this to test sorting algorithm robustness
         # ...
@@ -37,6 +47,9 @@ class IsSortedTest(unittest.TestCase):
         assert is_sorted(['A', 'A']) is True  # Duplicate items are in order
         assert is_sorted(['A', 'B']) is True
         assert is_sorted(['A', 'B', 'C']) is True
+        assert is_sorted(['A','C','E','F','F','H','J','J','K','K','L','M','N',
+                          'N','N','O','O','O','Q','Q','R','T','T','U','U','U',
+                          'V','V','W','Y']) is True
         # TODO: Write more positive test cases with assert is True statements
         # You'll need a lot more than this to test sorting algorithm robustness
         # ...
@@ -46,6 +59,9 @@ class IsSortedTest(unittest.TestCase):
         assert is_sorted(['B', 'A']) is False
         assert is_sorted(['A', 'B', 'A']) is False
         assert is_sorted(['C', 'B', 'A']) is False
+        assert is_sorted(['A','N','F','T','H','L','V','U','O','U','O','K','T',
+                          'E','V','J','Q','N','N','Y','U','J','Q','K','W','F',
+                          'M','O','R','C']) is False
         # TODO: Write more negative test cases with assert is False statements
         # You'll need a lot more than this to test sorting algorithm robustness
         # ...
