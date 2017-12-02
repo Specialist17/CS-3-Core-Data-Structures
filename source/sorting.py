@@ -1,5 +1,6 @@
 #!python
-
+from random import randrange
+from binarytree import BinarySearchTree
 
 def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
@@ -133,6 +134,50 @@ def split_sort_merge(items):
     bubble_sort(right)
 
     items[:] = merge(left, right)
+
+
+def tree_sort(items):
+    tree = BinarySearchTree()
+    print(items)
+    for item in items:
+        tree.insert(item)
+    sorted_items = tree.items_in_order()
+    print(sorted_items)
+
+
+def partition(items, left, right, pivot):
+
+    # 
+    items[pivot], items[right] = items[right], items[pivot]
+    store_index = left
+    for i in range(left, right):
+        if items[i] < items[right]:
+            items[i], items[store_index] = items[store_index], items[i]
+            store_index += 1
+    items[store_index], items[right] = items[right], items[store_index]
+    return store_index
+
+
+def quick_sort(items, left=None, right=None):
+
+    # set left and right to the first and last index respectively
+    if left is None:
+        left = 0
+        right = len(items) - 1
+
+    # when left index is more than the right index, just stop and return the items
+    if left >= right:
+        return items
+
+    # create a random pivot point
+    pivot = randrange(left, right + 1)
+
+    # get the next pivot point after "dividing" the list into greater than and less than pivot parts
+    new_pivot = partition(items, left, right, pivot)
+
+    # recursive calls with the new pivot
+    quick_sort(items, left, new_pivot - 1)
+    quick_sort(items, new_pivot + 1, right)
 
 
 
